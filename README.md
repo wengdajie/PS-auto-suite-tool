@@ -172,22 +172,3 @@ Windows 桌面工具：连接当前已经打开的 Photoshop，批量识别 PSD�
 界面采用 Liquid Glass 方向：蓝白/深蓝玻璃卡片、渐变背景、轻量高光边框和统一圆角。顶部仅保留产品名称和主题控件；主题按钮使用 Microsoft YaHei UI 和 Microsoft Fluent Emoji 开源彩色 SVG 转换图标，不使用 emoji 作为结构化按钮文字。默认窗口 `1280 × 800 px`，最小窗口 `1024 × 680 px`；窗口较窄时自动改为上下布局，所有卡片、队列、日志和映射控件均可伸缩，避免重叠遮挡。
 
 图标资源位于 `src/ps_auto_suite/assets/icons/`，来源为 [Microsoft Fluent Emoji](https://github.com/microsoft/fluentui-emoji)，遵循其开源许可。
-
-## 开发、测试与打包
-
-```powershell
-cd PS-auto-suite-tool
-python -m pip install -r requirements-dev.txt
-$env:PYTHONPATH = "$PWD\src"
-python -m py_compile src/ps_auto_suite/app.py src/ps_auto_suite/photoshop_runner.py src/ps_auto_suite/task_queue.py
-python -m pytest -q
-.\scripts\build.ps1
-```
-
-打包工作软件：
-
-```text
-dist/PS-Auto-Suite-Tool.exe
-```
-
-发布构建使用 Nuitka 将 Python 业务代码编译为原生二进制，再生成单文件、无控制台 EXE；界面资源、Tk、CustomTkinter 和 Photoshop COM 依赖会一并收集。构建缓存位于 `.nuitka-build/`，最终只分发 `dist/PS-Auto-Suite-Tool.exe`。
