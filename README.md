@@ -4,13 +4,25 @@ Windows 桌面工具，连接已经打开的 Photoshop，批量替换 PSD、PSB�
 
 ## 下载与启动
 
-- 当前版本：**V2.1.1**。
-- [下载 V2.1.1 单文件 EXE](https://github.com/wengdajie/PS-auto-suite-tool/releases/download/v2.1.1/PS-Auto-Suite-Rust-v2.1.1.exe) · [查看最新版本](https://github.com/wengdajie/PS-auto-suite-tool/releases/latest)。
+- 当前版本：**V2.1.2**。
+- [下载 V2.1.2 单文件 EXE](https://github.com/wengdajie/PS-auto-suite-tool/releases/download/v2.1.2/PS-Auto-Suite-Rust-v2.1.2.exe) · [查看最新版本](https://github.com/wengdajie/PS-auto-suite-tool/releases/latest)。
 - Windows 10/11，64 位；需安装可运行 ExtendScript/JSX 的 Photoshop。已在 Photoshop CC 2018 实测。
 - 下载一个 EXE 即可双击使用，无需另外安装 Python、Rust 或手动解压运行库。首次启动会在当前用户的本地应用数据目录准备内置文件。
 - 先打开 Photoshop，再打开工具。两者使用相同权限级别。
 
 本仓库发布软件说明与可执行程序；本次不上传应用源码。
+
+## V2.1.2 性能优化
+
+针对套图运行中和查看日志时的卡顿：
+
+- 日志先合并到有长度限制的缓冲区；窗口关闭时不重绘，打开后每秒最多刷新 4 次。
+- 实时窗口显示最近内容，完整日志仍保存在文件中，可点击“打开完整 log”查看。
+- 单次事件处理设置时间预算，为输入和窗口重绘留出时间。
+- 导出设置检查从每秒约 12 次降到 2 次，退出时仍保存最终设置。
+- 保留 V2.1.1 的命名、预览、连续分轮和防覆盖规则，Photoshop 执行逻辑未改变。
+
+本机高频日志模拟中，真实日志窗口 CPU 用时约减少六成。这是合成压力测试，不代表所有设备或 Photoshop 出图速度。
 
 ## V2.1.1 更新
 
