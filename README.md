@@ -4,13 +4,24 @@ Windows 桌面工具，连接已经打开的 Photoshop，批量替换 PSD、PSB�
 
 ## 下载与启动
 
-- 当前版本：**V2.1.2**。
-- [下载 V2.1.2 单文件 EXE](https://github.com/wengdajie/PS-auto-suite-tool/releases/download/v2.1.2/PS-Auto-Suite-Rust-v2.1.2.exe) · [查看最新版本](https://github.com/wengdajie/PS-auto-suite-tool/releases/latest)。
+- 当前版本：**V2.1.3**。
+- [下载 V2.1.3 单文件 EXE](https://github.com/wengdajie/PS-auto-suite-tool/releases/download/v2.1.3/PS-Auto-Suite-Rust-v2.1.3.exe) · [查看最新版本](https://github.com/wengdajie/PS-auto-suite-tool/releases/latest)。
 - Windows 10/11，64 位；需安装可运行 ExtendScript/JSX 的 Photoshop。已在 Photoshop CC 2018 实测。
 - 下载一个 EXE 即可双击使用，无需另外安装 Python、Rust 或手动解压运行库。首次启动会在当前用户的本地应用数据目录准备内置文件。
 - 先打开 Photoshop，再打开工具。两者使用相同权限级别。
 
 本仓库发布软件说明与可执行程序；本次不上传应用源码。
+
+## V2.1.3 运行中界面无响应修复
+
+针对任务栏图标还在、窗口点击后无法打开的运行期阻塞：
+
+- 执行器请求的编码和管道写入移到后台线程；管道阻塞不再直接阻塞界面。
+- 套图及其他繁忙操作期间暂停设置自动落盘，闲置及退出时保存最终设置。
+- 相同任务进度不重复更新队列，保留此前日志合并与刷新节流。
+- 后台监测界面心跳，延迟超过 2 秒或发生 Rust 异常时记录到 `%LOCALAPPDATA%/PS-Auto-Suite/logs/ui-stall.log`，便于进一步排查。
+
+Photoshop 的素材替换、分轮和导出逻辑保持不变。模拟慢执行器的对照测试用于验证阻塞修复，并不代表已复现所有设备上的卡顿原因。
 
 ## V2.1.2 性能优化
 
