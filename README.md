@@ -4,13 +4,28 @@ Windows 桌面工具，连接已经打开的 Photoshop，批量替换 PSD、PSB�
 
 ## 下载与启动
 
-- 当前版本：**V2.1.3**。
-- [下载 V2.1.3 单文件 EXE](https://github.com/wengdajie/PS-auto-suite-tool/releases/download/v2.1.3/PS-Auto-Suite-Rust-v2.1.3.exe) · [查看最新版本](https://github.com/wengdajie/PS-auto-suite-tool/releases/latest)。
+- 当前版本：**V2.1.4**。
+- [下载 V2.1.4 单文件 EXE](https://github.com/wengdajie/PS-auto-suite-tool/releases/download/v2.1.4/PS-Auto-Suite-Rust-v2.1.4.exe) · [查看最新版本](https://github.com/wengdajie/PS-auto-suite-tool/releases/latest)。
 - Windows 10/11，64 位；需安装可运行 ExtendScript/JSX 的 Photoshop。已在 Photoshop CC 2018 实测。
 - 下载一个 EXE 即可双击使用，无需另外安装 Python、Rust 或手动解压运行库。首次启动会在当前用户的本地应用数据目录准备内置文件。
 - 先打开 Photoshop，再打开工具。两者使用相同权限级别。
 
 本仓库发布软件说明与可执行程序；本次不上传应用源码。
+
+## V2.1.4 多模板智能对象识别
+
+套图来源新增“识别方式”：
+
+| 识别方式 | 行为 |
+| --- | --- |
+| 自动链接（旧版，默认） | 保留自动发现链接源、共享图案和联动导出的原流程 |
+| 智能对象映射（新） | 读取全部所选模板的非 tag 对象名称，按名称逐个映射素材图号 |
+
+使用新方案：选择“智能对象映射（新）”→点击“读取智能对象”→编辑各对象图号→扫描并加入队列。比如“正面→1、背面→2”，两模板中的同名对象使用同一张素材；只有背面的模板仍使用第 2 张素材，不会错移到第 1 张。缺少的名称不模糊借用其他图层。全局最大正图号作为每轮素材跨度，`0` 保留原图；某个模板没有任何可匹配对象时，在预检报错。
+
+新模式的所选 PSD 均作为待导出模板，不自动把“图案模板”文件分离为共享源。只选择需要导出的模板；外部链接源无需放入所选目录。选中的链接对象在工作文档内转换为嵌入后替换，源 PSD 和外部链接文件不保存改动。tag 与副本名称的原有过滤规则保留。
+
+识别方式随项目和队列保存，并记住为偏好。切换方式后请重新读取对象；修改已入队任务时点击“更新选中”或重新添加。
 
 ## V2.1.3 运行中界面无响应修复
 
